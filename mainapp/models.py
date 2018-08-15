@@ -71,7 +71,7 @@ class Volunteer(models.Model):
     )
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=10)
-    organisation = models.CharField(max_length=250, verbose_name="Organization (സംഘടന) / College")
+    organisation = models.CharField(max_length=250, verbose_name="Organization (സംഘടന) / Institution")
     address = models.TextField()
     is_spoc = models.BooleanField(default=False, verbose_name="Is point of contact")
     joined = models.DateTimeField(auto_now_add=True)
