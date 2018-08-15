@@ -103,3 +103,6 @@ class DistrictManagerFilter(django_filters.FilterSet):
 def districtmanager_list(request):
     filter = DistrictManagerFilter(request.GET, queryset=DistrictManager.objects.all())
     return render(request, 'mainapp/districtmanager_list.html', {'filter': filter})
+
+class Maintenance(TemplateView):
+    template_name = "mainapp/maintenance.html"
