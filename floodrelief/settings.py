@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import environ
 import dj_database_url
+import raven
 
 def get_list(text):
     return [item.strip() for item in text.split(',')]
@@ -41,6 +42,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ALLOWED_HOSTS = ['127.0.0.1', 'keralarescue.herokuapp.com', 'keralarescue.in', 'www.keralarescue.in', 'localhost']
 ALLOWED_HOSTS = get_list(os.environ.get('ALLOWED_HOSTS'))
 
+
+RAVEN_CONFIG = {
+    'dsn': env('SENTRY_DSN'),
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+}
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap3',
     'django_filters',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
