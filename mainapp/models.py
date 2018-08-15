@@ -60,6 +60,24 @@ class Request(models.Model):
     supply_details = models.CharField(max_length=100, blank=True)
     dateadded = models.DateTimeField(auto_now_add=True)
 
+    def summarise(self):
+        out = ""
+        if(self.needwater):
+            out += "Water Requirements :\n {}".format(self.detailwater) 
+        if(self.needfood):
+            out += "\nFood Requirements :\n {}".format(self.detailfood) 
+        if(self.needcloth):
+            out += "\nCloth Requirements :\n {}".format(self.detailcloth) 
+        if(self.needmed):
+            out += "\nMedicine Requirements :\n {}".format(self.detailmed) 
+        if(self.needtoilet):
+            out += "\nToilet Requirements :\n {}".format(self.detailtoilet) 
+        if(self.needkit_util):
+            out += "\nKit Requirements :\n {}".format(self.detailkit_util) 
+        if(len(self.needothers.strip()) != 0):
+            out += "\nOther Needs :\n {}".format(self.needothers) 
+        return out
+
     def __str__(self):
         return self.get_district_display() + ' ' + self.location
 
