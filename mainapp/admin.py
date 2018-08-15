@@ -13,9 +13,12 @@ class VolunteerAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'organisation', 'joined')
     list_filter = ('district', 'joined',)
 
+class ContributorAdmin(admin.ModelAdmin):
+    list_filter = ('district', 'status',)
+
 admin.site.register(Request, RequestAdmin)
 admin.site.register(Volunteer, VolunteerAdmin)
-admin.site.register(Contributor)
+admin.site.register(Contributor, ContributorAdmin)
 admin.site.register(DistrictNeed)
 admin.site.register(DistrictCollection)
 admin.site.register(DistrictManager)
