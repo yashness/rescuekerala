@@ -57,6 +57,11 @@ class RegSuccess(TemplateView):
 class ContribSuccess(TemplateView):
     template_name = "mainapp/contrib_success.html"
 
+class DisclaimerPage(TemplateView):
+    template_name = "mainapp/disclaimer.html"
+    
+class AboutIEEE(TemplateView):
+    template_name = "mainapp/aboutieee.html"
 
 class DistNeeds(TemplateView):
     template_name = "mainapp/district_needs.html"

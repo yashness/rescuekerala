@@ -14,4 +14,6 @@ urlpatterns = [
     path('district_needs/', views.DistNeeds.as_view(), name='distneedsview'),
     path('reg_contrib/', views.RegisterContributor.as_view(), name='reg_contribview'),
     path('contrib_success/', views.ContribSuccess.as_view(), name='contribsucessview'),
+    path('disclaimer/', views.DisclaimerPage.as_view(), name='disclaimer'),
+    path('ieee/', views.AboutIEEE.as_view(), name='aboutieee'),
 ]

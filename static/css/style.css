@@ -96,6 +96,9 @@ footer{
     margin: 15px;
 }
 @media screen and (max-width: 640px) {
+    .navbar{
+        padding: 4px 6px;
+    }
     .brand-logo,.brand-logo:hover{
         font-size: 15px;
         padding: 3px 6px;
@@ -119,7 +122,6 @@ footer{
     a.home-button .text{
         font-size: 2rem;
     }
-    
     .nav-logo{
         height: 30px;
     }
@@ -146,4 +148,11 @@ tr:nth-child(even) {
 }
 tr:hover td{
     background-color: #dce9f1;
+}
+
+.static-page-box{
+    background: #F5F5F5;
+    margin-top:40px;
+    padding:20px 20px 50px;
+    border: 2px solid #CCCCCC;
 }
