@@ -28,6 +28,20 @@ contrib_status_types =(
     ('ful', 'Fullfilled'),
 )
 
+vol_categories = (
+    ('dcr', 'Doctor'),
+    ('hsv', 'Health Services'),
+    ('elw', 'Electrical Works'),
+    ('mew', 'Mechanical Work'),
+    ('cvw', 'Civil Work'),
+    ('plw', 'Plumbing work'),
+    ('vls', 'Vehicle Support'),
+    ('ckg', 'Cooking'),
+    ('rlo', 'Relief operation'),
+    ('cln', 'Cleaning'),
+    ('oth', 'Other')
+)
+
 class Request(models.Model):
     district = models.CharField(
         max_length = 15,
@@ -73,6 +87,11 @@ class Volunteer(models.Model):
     phone = models.CharField(max_length=10)
     organisation = models.CharField(max_length=250, verbose_name="Organization (സംഘടന) / Institution")
     address = models.TextField()
+    area = models.CharField(
+        max_length = 15,
+        choices = vol_categories,
+        verbose_name = "Area of volunteering"
+    )
     is_spoc = models.BooleanField(default=False, verbose_name="Is point of contact")
     joined = models.DateTimeField(auto_now_add=True)
 
