@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<h3>
+        Relief Camps | 
+        ദുരിതാശ്വാസ ക്യാമ്പുകൾ
+</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-info btn-lg">
+                Person Search - വ്യക്തിയെ തിരയുക
+        </a>
+    </div>
+    <div class="col-md-8 text-right">
+        <a class="btn btn-default" href="/add_person">
+            Coordinator Login
+        </a>
+        <p>
+                If you're a coordinator, please contact us to get login details
+                <br>
+                ലോഗിൻ ഡീറ്റെയിൽസ് ലഭിക്കാൻ നമ്മളെ സമീപിക്കുക
+        </p>
+    </div>
+</div>
+
+<div>
+  <table class="table">
+    <tr>
+      <th>District</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Contact</th>
+      <th>Registrations</th>
+    </tr>
+  {% for item in relief_camps %}
+    <tr valign="top">
+      <td><strong>{{ item.get_district_display }}</strong></td>
+      <td>
+        {{ item.name }}
+      </td>
+      <td>
+        {{ item.location | linebreaks }}
+      </td>
+      <td>
+        {{ item.contacts }}
+      </td>
+      <td>
+        <!-- Insert count of registrations here -->
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

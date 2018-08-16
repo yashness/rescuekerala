@@ -21,5 +21,7 @@ urlpatterns = [
     path('dmodash/' , views.dmodash , name="DMODash"),
     path('dmoinfo/' , views.dmoinfo , name="DMOInfo" ),
     path('add_person/', views.AddPerson.as_view(), name='add_person'),
-    path('login/', auth_views.LoginView.as_view(template_name='mainapp/login.html'),name='user_login')
+    path('login/', auth_views.LoginView.as_view(template_name='mainapp/login.html'),name='user_login'),
+    path('logout/', views.logout_view, name='user_logout'),
+    path('relief_camps/', views.ReliefCamps.as_view(), name='relief_camps')
 ]

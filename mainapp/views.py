@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 class CreateRequest(CreateView):
     model = Request
@@ -84,6 +86,17 @@ class DistNeeds(TemplateView):
         context['district_data'] = DistrictNeed.objects.all()
         return context
 
+class ReliefCamps(TemplateView):
+    template_name = "mainapp/relief_camps.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['relief_camps'] = RescueCamp.objects.all()
+        return context
+
+
 class RequestFilter(django_filters.FilterSet):
     class Meta:
         model = Request
@@ -151,6 +164,11 @@ def dmoinfo(request):
     conserve = Contributor.objects.all().filter(status = "ful" , district = dist).count()
     contotal = Contributor.objects.all().filter(district = dist).count()
     return render(request ,"dmoinfo.html",{"reqserve" : reqserve , "reqtotal" : reqtotal , "volcount" : volcount , "conserve" : conserve , "contotal" : contotal })
+
+def logout_view(request):
+    logout(request)
+    # Redirect to camps page instead
+    return redirect('home')
 
 class PersonForm(forms.ModelForm):
     class Meta:
