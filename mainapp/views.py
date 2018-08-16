@@ -125,3 +125,6 @@ def mapdata(request):
     data = Request.objects.exclude(latlng__exact="").values()
 
     return JsonResponse(list(data) , safe=False) 
+
+def mapview(request):
+    return render(request,"map.html")
