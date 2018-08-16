@@ -6,7 +6,7 @@ class Pickup(models.Model):
     mobilenumber = models.IntegerField()
     address = models.CharField(max_length=100)
     latt = models.IntegerField()
-    long = models.IntegerField()
+    longitude = models.IntegerField()
     medicalemergency = models.BooleanField(default=False)
     medicalreason = models.TextField()
     no_people = models.IntegerField()
