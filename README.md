@@ -45,15 +45,26 @@ Copy sample environment file and configure it as per your local settings
 cp .env.example .env
 ```
 
+Install dependencies
+
+```
+pip3 install -r requirements.txt
+```
+
 Run Database migrations
 
 ```
 python3 manage.py migrate
 ```
 
+Setup staticfiles
+```
+python3 manage.py collectstatic
+```
+
 Run the server
 
 ```
-gunicorn floodrelief.wsgi
+python3 manage.py runserver
 ```
 Now open localhost:8000 in the browser
