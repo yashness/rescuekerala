@@ -4,10 +4,11 @@ from django.db import models
 class Pickup(models.Model):
     name = models.CharField(max_length=50)
     mobilenumber = models.IntegerField()
-    location = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
     latt = models.IntegerField()
     long = models.IntegerField()
-    medicalemergency = models.TextField()
+    medicalemergency = models.BooleanField(default=False)
+    medicalreason = models.TextField()
     no_people = models.IntegerField()
 
     def __str__(self):
