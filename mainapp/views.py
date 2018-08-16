@@ -59,7 +59,7 @@ class ContribSuccess(TemplateView):
 
 class DisclaimerPage(TemplateView):
     template_name = "mainapp/disclaimer.html"
-    
+
 class AboutIEEE(TemplateView):
     template_name = "mainapp/aboutieee.html"
 
@@ -80,7 +80,7 @@ class RequestFilter(django_filters.FilterSet):
     class Meta:
         model = Request
         # fields = ['district', 'status', 'needwater', 'needfood', 'needcloth', 'needmed', 'needkit_util', 'needtoilet', 'needothers',]
-        fields = ['district', 'status']
+        fields = ['district',]
 
     def __init__(self, *args, **kwargs):
         super(RequestFilter, self).__init__(*args, **kwargs)
