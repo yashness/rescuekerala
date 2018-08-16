@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.db.models import Count
 
 class CreateRequest(CreateView):
     model = Request
@@ -93,7 +94,7 @@ class ReliefCamps(TemplateView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['relief_camps'] = RescueCamp.objects.all()
+        context['relief_camps'] = RescueCamp.objects.annotate(count=Count('person')).order_by('district','name').all()
         return context
 
 
@@ -224,7 +225,7 @@ class PeopleFilter(django_filters.FilterSet):
 
 def find_people(request):
     filter = PeopleFilter(request.GET, queryset=Person.objects.all())
-    people = filter.qs.order_by('-added_at')
+    people = filter.qs.order_by('name','-added_at')
     paginator = Paginator(people, 50)
     page = request.GET.get('page')
     people = paginator.get_page(page)
