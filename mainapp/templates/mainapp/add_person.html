@@ -14,7 +14,7 @@
   </ul>
 {% endif %}
 
-
+{% block content %}
   <form method="post"  class="simple-form">
   {% csrf_token %}
   {% bootstrap_form form %}

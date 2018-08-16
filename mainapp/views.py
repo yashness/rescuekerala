@@ -163,7 +163,7 @@ class PersonForm(forms.ModelForm):
         'address',
         'district',
         'phone',
-        'notes',
+        'notes'
         ]
 
     def __init__(self, *args, **kwargs):
