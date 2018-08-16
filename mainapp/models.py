@@ -8,7 +8,7 @@ districts = (
     ('idk','Idukki - ഇടുക്കി'),
     ('mpm','Malappuram - മലപ്പുറം'),
     ('koz','Kozhikode - കോഴിക്കോട്'),
-    ('wnd','Wayana - വയനാട്d'),
+    ('wnd','Wayana - വയനാട്'),
     ('knr','Kannur - കണ്ണൂർ'),
     ('ksr','Kasaragod - കാസർഗോഡ്'),
     ('pkd','Palakkad - പാലക്കാട്'),
