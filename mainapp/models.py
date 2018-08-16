@@ -39,6 +39,8 @@ vol_categories = (
     ('ckg', 'Cooking'),
     ('rlo', 'Relief operation'),
     ('cln', 'Cleaning'),
+    ('bot', 'Boat Service'),
+    ('rck', 'Rock Climbing'),
     ('oth', 'Other')
 )
 
