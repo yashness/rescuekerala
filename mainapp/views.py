@@ -87,7 +87,7 @@ class RequestFilter(django_filters.FilterSet):
     class Meta:
         model = Request
         # fields = ['district', 'status', 'needwater', 'needfood', 'needcloth', 'needmed', 'needkit_util', 'needtoilet', 'needothers',]
-        fields = ['district',]
+        fields = ['district','location']
 
     def __init__(self, *args, **kwargs):
         super(RequestFilter, self).__init__(*args, **kwargs)
