@@ -10,31 +10,23 @@
  <div class="table-responsive">
   <table class="table">
     <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Address</th>
       <th>District</th>
-      <th>Location</th>
-      <th>GPS Location</th>
-      <th>Requestee</th>
-      <th>Contact number</th>
-      <th>Summary of request</th>
-      <th>Date</th>
+      <th>Camped at </th>
+      <th>Notes</th>
+      <th>Added at </th>
     </tr>
     {% for req in data %}
         <tr>
-          <td>{{ req.get_district_display }}</td>
-          <td>{{ req.location }}</td>
-          <td>
-            {% if not req.is_request_for_others and req.latlng %}
-              <a class="btn btn-sm btn-success" href="https://maps.google.com/?q={{ req.latlng }}" target="_blank">Open in maps</a>
-              <br>
-              Accuracy: {{ req.latlng_accuracy }}
-            {% else %}
-              NA
-            {% endif %}
-          </td>
-          <td>{{ req.requestee }}</td>
-          <td><a href="tel:{{ req.requestee_phone }}" >{{ req.requestee_phone }}</a></td> 
-          <td>{{ req.summarise | linebreaks }}</td>
-          <td>{{ req.dateadded }}</td>
+          <td>{{ req.name }}</td>
+          <td>{{ req.age }}</td>
+          <td>{{ req.address }}</td>
+          <td>{{ req.get_district_display}}</td>
+          <td>{{ req.camped_at}}</td>
+          <td>{{ req.notes}}</td>
+          <td>{{ req.get_added_at_display}}</td>
         </tr>
     {% endfor %}
 
@@ -43,21 +35,21 @@
   <div class="pagination" >
     <span class="step-links">
         {% if data.has_previous %}
-            <a href="?page=1&district={{ request.GET.district }}">&laquo; first</a>
-            <a href="?page={{ data.previous_page_number }}&district={{ request.GET.district }}">previous</a>
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{data.previous_page_number}}">previous</a>
         {% endif %}
   
         {% for i in data.paginator.page_range %}
         {% if data.number == i %}
           <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
         {% else %}
-          <a href="?page={{ i }}&district={{ request.GET.district }}">{{ i }}</a>
+          <a href="?page={{i}}">{{ i }}</a>
         {% endif %}
       {% endfor %}
   
         {% if data.has_next %}
-            <a href="?page={{ data.next_page_number }}&district={{ request.GET.district }}">next</a>
-            <a href="?page={{ data.paginator.num_pages }}&district={{ request.GET.district }}">last &raquo;</a>
+            <a href="?page={{ data.next_page_number }}">next</a>
+            <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
   </div>

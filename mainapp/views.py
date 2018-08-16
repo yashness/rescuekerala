@@ -202,3 +202,30 @@ class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
         kwargs = super(AddPerson, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+class PeopleFilter(django_filters.FilterSet):
+    class Meta:
+        model = Person
+        fields = {
+                    'name' : ['icontains'],
+                    'phone' : ['icontains'],
+                    'address' : ['icontains'],
+                    'district' : ['exact'],
+                    'notes':['icontains'],
+                    'gender':['exact'],
+                    'camped_at':['exact']
+                 }
+
+    def __init__(self, *args, **kwargs):
+        super(PeopleFilter, self).__init__(*args, **kwargs)
+        # at startup user doen't push Submit button, and QueryDict (in data) is empty
+        if self.data == {}:
+            self.queryset = self.queryset.none()
+
+def find_people(request):
+    filter = PeopleFilter(request.GET, queryset=Person.objects.all())
+    people = filter.qs.order_by('-added_at')
+    paginator = Paginator(people, 50)
+    page = request.GET.get('page')
+    people = paginator.get_page(page)
+    return render(request, 'mainapp/request_list.html', {'filter': filter , "data" : people })
