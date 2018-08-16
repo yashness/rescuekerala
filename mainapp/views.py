@@ -221,7 +221,7 @@ class PeopleFilter(django_filters.FilterSet):
         super(PeopleFilter, self).__init__(*args, **kwargs)
         # at startup user doen't push Submit button, and QueryDict (in data) is empty
         if self.data == {}:
-            self.queryset = self.queryset.none()
+            self.queryset = self.queryset.all()
 
 def find_people(request):
     filter = PeopleFilter(request.GET, queryset=Person.objects.all())
