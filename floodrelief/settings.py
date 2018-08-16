@@ -103,20 +103,12 @@ WSGI_APPLICATION = 'floodrelief.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {}
-# DATABASES['default'] = dj_database_url.parse(env('B_DATABASE_URL'), conn_max_age=600)
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rescuekerala',
-        'USER': 'kurianbenoy',
-        'PASSWORD': 'yourpass',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
+# DATABASES = {
+#     # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
+#     'default': env.db()
+# }
+DATABASES = {}
+DATABASES['default'] = dj_database_url.parse(env('B_DATABASE_URL'), conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
