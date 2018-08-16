@@ -1,20 +1,20 @@
 from django.db import models
 
 districts = (
-    ('ptm','Pathanamthitta - പത്തനംതിട്ട'),
-    ('wnd','Wayanad - വയനാട്'),
-    ('idk','Idukki - ഇടുക്കി'),
-    ('ekm','Ernakulam - എറണാകുളം'),
-    ('ktm','Kottayam - കോട്ടയം'),
     ('alp','Alappuzha - ആലപ്പുഴ'),
-    ('pkd','Palakkad - പാലക്കാട്'),
-    ('mpm','Malappuram - മലപ്പുറം'),
-    ('koz','Kozhikode - കോഴിക്കോട്'),
+    ('ekm','Ernakulam - എറണാകുളം'),
+    ('idk','Idukki - ഇടുക്കി'),
     ('knr','Kannur - കണ്ണൂർ'),
     ('ksr','Kasaragod - കാസർഗോഡ്'),
-    ('tcr','Thrissur - തൃശ്ശൂർ'),
-    ('tvm','Thiruvananthapuram - തിരുവനന്തപുരം'),
     ('kol','Kollam - കൊല്ലം'),
+    ('ktm','Kottayam - കോട്ടയം'),
+    ('koz','Kozhikode - കോഴിക്കോട്'),
+    ('mpm','Malappuram - മലപ്പുറം'),
+    ('pkd','Palakkad - പാലക്കാട്'),
+    ('ptm','Pathanamthitta - പത്തനംതിട്ട'),
+    ('tvm','Thiruvananthapuram - തിരുവനന്തപുരം'),
+    ('tcr','Thrissur - തൃശ്ശൂർ'),
+    ('wnd','Wayanad - വയനാട്'),
 )
 
 status_types =(
