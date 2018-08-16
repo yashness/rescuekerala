@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Request, Volunteer, Contributor, DistrictNeed, DistrictCollection, DistrictManager
+from .models import Request, Volunteer, Contributor, DistrictNeed, DistrictCollection, DistrictManager ,vol_categories
 import csv
 from django.http import HttpResponse
 
@@ -16,6 +16,7 @@ class RequestAdmin(admin.ModelAdmin):
         writer.writerow(l)
         data = Request.objects.all().values_list()
         for s in data:
+
             writer.writerow(s)
         f.close()
         f = open('test.csv', 'r')
@@ -32,6 +33,10 @@ class VolunteerAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'organisation', 'joined')
     list_filter = ('district', 'joined',)
     def download_csv(self, request, queryset):
+        options = vol_categories
+        mapper = {}
+        for i in vol_categories:
+            mapper[i[0]] = i[1] 
         f = open('test.csv', 'w')
         writer = csv.writer(f)
         l = []
@@ -40,6 +45,8 @@ class VolunteerAdmin(admin.ModelAdmin):
         writer.writerow(l)
         data = Volunteer.objects.all().values_list()
         for s in data:
+            s = list(s)
+            s[6] = mapper[s[6]]
             writer.writerow(s)
         f.close()
         f = open('test.csv', 'r')
