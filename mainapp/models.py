@@ -1,20 +1,20 @@
 from django.db import models
 
 districts = (
-    ('tvm','Thiruvananthapuram'),
-    ('ptm','Pathanamthitta'),
-    ('alp','Alappuzha'),
-    ('ktm','Kottayam'),
-    ('idk','Idukki'),
-    ('mpm','Malappuram'),
-    ('koz','Kozhikode'),
-    ('wnd','Wayanad'),
-    ('knr','Kannur'),
-    ('ksr','Kasaragod'),
-    ('pkd','Palakkad'),
-    ('tcr','Thrissur'),
-    ('ekm','Ernakulam'),
-    ('kol','Kollam'),
+    ('alp','Alappuzha - ആലപ്പുഴ'),
+    ('ekm','Ernakulam - എറണാകുളം'),
+    ('idk','Idukki - ഇടുക്കി'),
+    ('knr','Kannur - കണ്ണൂർ'),
+    ('ksr','Kasaragod - കാസർഗോഡ്'),
+    ('kol','Kollam - കൊല്ലം'),
+    ('ktm','Kottayam - കോട്ടയം'),
+    ('koz','Kozhikode - കോഴിക്കോട്'),
+    ('mpm','Malappuram - മലപ്പുറം'),
+    ('pkd','Palakkad - പാലക്കാട്'),
+    ('ptm','Pathanamthitta - പത്തനംതിട്ട'),
+    ('tvm','Thiruvananthapuram - തിരുവനന്തപുരം'),
+    ('tcr','Thrissur - തൃശ്ശൂർ'),
+    ('wnd','Wayanad - വയനാട്'),
 )
 
 status_types =(
@@ -39,6 +39,8 @@ vol_categories = (
     ('ckg', 'Cooking'),
     ('rlo', 'Relief operation'),
     ('cln', 'Cleaning'),
+    ('bot', 'Boat Service'),
+    ('rck', 'Rock Climbing'),
     ('oth', 'Other')
 )
 
@@ -61,6 +63,7 @@ class Request(models.Model):
     needmed = models.BooleanField(verbose_name='Medicine - മരുന്നുകള്‍')
     needtoilet = models.BooleanField(verbose_name='Toiletries - ശുചീകരണ സാമഗ്രികള്‍ ')
     needkit_util = models.BooleanField(verbose_name='Kitchen utensil - അടുക്കള സാമഗ്രികള്‍')
+    needrescue = models.BooleanField(verbose_name='Need rescue - രക്ഷാപ്രവർത്തനം ആവശ്യമുണ്ട്')
 
     detailwater = models.CharField(max_length=250, verbose_name='Details for required water - ആവശ്യമായ വെള്ളത്തിന്‍റെ വിവരങ്ങള്‍', blank=True)
     detailfood = models.CharField(max_length=250, verbose_name='Details for required food - ആവശ്യമായ ഭക്ഷണത്തിന്‍റെ വിവരങ്ങള്‍', blank=True)
@@ -68,6 +71,7 @@ class Request(models.Model):
     detailmed = models.CharField(max_length=250, verbose_name='Details for required medicine - ആവശ്യമായ മരുന്നിന്‍റെ  വിവരങ്ങള്‍', blank=True)
     detailtoilet = models.CharField(max_length=250, verbose_name='Details for required toiletries - ആവശ്യമായ  ശുചീകരണ സാമഗ്രികള്‍', blank=True)
     detailkit_util = models.CharField(max_length=250, verbose_name='Details for required kitchen utensil - ആവശ്യമായ അടുക്കള സാമഗ്രികള്‍', blank=True)
+    detailrescue = models.CharField(max_length=250, verbose_name='Details for rescue action - രക്ഷാപ്രവർത്തനം വിവരങ്ങള്', blank=True)
 
     needothers = models.CharField(max_length=500, verbose_name="Other needs - മറ്റു ആവശ്യങ്ങള്‍", blank=True)
     status = models.CharField(

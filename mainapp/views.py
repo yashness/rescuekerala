@@ -4,6 +4,9 @@ from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
 from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed
 import django_filters
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http import JsonResponse
+from django.http import HttpResponseRedirect
 
 class CreateRequest(CreateView):
     model = Request
@@ -16,6 +19,8 @@ class CreateRequest(CreateView):
         'is_request_for_others',
         'latlng',
         'latlng_accuracy',
+        'needrescue',
+        'detailrescue',
         'needwater',
         'detailwater',
         'needfood',
@@ -83,7 +88,13 @@ class RequestFilter(django_filters.FilterSet):
     class Meta:
         model = Request
         # fields = ['district', 'status', 'needwater', 'needfood', 'needcloth', 'needmed', 'needkit_util', 'needtoilet', 'needothers',]
-        fields = ['district',]
+
+        fields = {
+                    'district' : ['exact'],
+                    'requestee' : ['icontains'],
+                    'requestee_phone' : ['exact'],
+                    'location' : ['exact']
+                 }
 
     def __init__(self, *args, **kwargs):
         super(RequestFilter, self).__init__(*args, **kwargs)
@@ -93,8 +104,12 @@ class RequestFilter(django_filters.FilterSet):
 
 
 def request_list(request):
-    filter = RequestFilter(request.GET, queryset=Request.objects.all())
-    return render(request, 'mainapp/request_list.html', {'filter': filter})
+    filter = RequestFilter(request.GET, queryset=Request.objects.all() )
+    req_data = filter.qs.order_by('-dateadded')
+    paginator = Paginator(req_data, 100)
+    page = request.GET.get('page')
+    req_data = paginator.get_page(page)
+    return render(request, 'mainapp/request_list.html', {'filter': filter , "data" : req_data })
 
 
 class DistrictManagerFilter(django_filters.FilterSet):
@@ -114,3 +129,25 @@ def districtmanager_list(request):
 
 class Maintenance(TemplateView):
     template_name = "mainapp/maintenance.html"
+
+
+def mapdata(request):
+    data = Request.objects.exclude(latlng__exact="").values()
+
+    return JsonResponse(list(data) , safe=False) 
+
+def mapview(request):
+    return render(request,"map.html")
+
+def dmodash(request):
+    return render(request , "dmodash.html")
+
+def dmoinfo(request):
+    if("district" not in request.GET.keys()):return HttpResponseRedirect("/")
+    dist = request.GET.get("district")
+    reqserve = Request.objects.all().filter(status = "sup" , district = dist).count()
+    reqtotal = Request.objects.all().filter(district = dist).count()
+    volcount = Volunteer.objects.all().filter(district = dist).count()
+    conserve = Contributor.objects.all().filter(status = "ful" , district = dist).count()
+    contotal = Contributor.objects.all().filter(district = dist).count()
+    return render(request ,"dmoinfo.html",{"reqserve" : reqserve , "reqtotal" : reqtotal , "volcount" : volcount , "conserve" : conserve , "contotal" : contotal })
