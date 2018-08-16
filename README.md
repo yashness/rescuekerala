@@ -17,6 +17,7 @@ You will need to have following softwares in your system
 
 - Python 3
 - Postgres
+- git
 
 ### Installing
 
@@ -39,6 +40,12 @@ GRANT
 postgres=# \q
 
 ```
+Clone the repo
+```
+git clone https://github.com/IEEEKeralaSection/rescuekerala.git
+cd rescuekerala
+```
+
 Copy sample environment file and configure it as per your local settings
 
 ```
