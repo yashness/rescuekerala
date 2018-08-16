@@ -42,7 +42,7 @@
 	}
 
 	window.onload = function(){
-
+        $("#id_requestee_phone").attr('type', 'number');
 		var gpsField = document.getElementById('id_latlng');
 		gpsField.readOnly = true;
 		var gpsAccuracyField = document.getElementById('id_latlng_accuracy');
