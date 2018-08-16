@@ -197,7 +197,7 @@ class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
     template_name='mainapp/add_person.html'  
     form_class = PersonForm
     success_url = '/add_person/'
-    success_message = "Added %(name)s to the list"
+    success_message = "'%(name)s' registered successfully"
 
     def get_form_kwargs(self):
         kwargs = super(AddPerson, self).get_form_kwargs()
@@ -205,21 +205,25 @@ class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
         return kwargs
 
 class PeopleFilter(django_filters.FilterSet):
+    fields = ['name', 'phone','address','district','notes','gender','camped_at']
+
     class Meta:
         model = Person
         fields = {
-                    'name' : ['icontains'],
-                    'phone' : ['icontains'],
-                    'address' : ['icontains'],
-                    'district' : ['exact'],
-                    'notes':['icontains'],
-                    'gender':['exact'],
-                    'camped_at':['exact']
-                 }
+            'name' : ['icontains'],
+            'phone' : ['icontains'],
+            'address' : ['icontains'],
+            'district' : ['exact'],
+            'notes':['icontains'],
+            'gender':['exact'],
+            'camped_at':['exact']
+        }
+
+        # TODO - field order seems to not be working!
+        # field_order = ['name', 'phone', 'address','district','notes','gender','camped_at']
 
     def __init__(self, *args, **kwargs):
         super(PeopleFilter, self).__init__(*args, **kwargs)
-        # at startup user doen't push Submit button, and QueryDict (in data) is empty
         if self.data == {}:
             self.queryset = self.queryset.all()
 

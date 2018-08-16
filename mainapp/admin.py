@@ -92,13 +92,8 @@ class ContributorAdmin(admin.ModelAdmin):
         response['Content-Disposition'] = 'attachment; filename=Contributors.csv'
         return response
 
-class PersonInline(admin.TabularInline):
-    model = Person
-
 class RescueCampAdmin(admin.ModelAdmin):
-    inlines = [
-        PersonInline,
-    ]
+    list_display = ('district', 'name', 'location')
 
 admin.site.register(Request, RequestAdmin)
 admin.site.register(Volunteer, VolunteerAdmin)
