@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
 from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed
 import django_filters
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 class CreateRequest(CreateView):
     model = Request
@@ -90,8 +91,12 @@ class RequestFilter(django_filters.FilterSet):
 
 
 def request_list(request):
-    filter = RequestFilter(request.GET, queryset=Request.objects.all())
-    return render(request, 'mainapp/request_list.html', {'filter': filter})
+    filter = RequestFilter(request.GET, queryset=Request.objects.all()  )
+    req_data = filter.qs
+    paginator = Paginator(req_data, 100)
+    page = request.GET.get('page')
+    req_data = paginator.get_page(page)
+    return render(request, 'mainapp/request_list.html', {'filter': filter , "data" : req_data })
 
 
 class DistrictManagerFilter(django_filters.FilterSet):
