@@ -168,7 +168,7 @@ def dmoinfo(request):
 def logout_view(request):
     logout(request)
     # Redirect to camps page instead
-    return redirect('home')
+    return redirect('relief_camps')
 
 class PersonForm(forms.ModelForm):
     class Meta:

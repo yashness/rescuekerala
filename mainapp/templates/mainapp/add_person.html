@@ -12,28 +12,27 @@
       വ്യക്തിയെ രജിസ്റ്റർ ചെയ്യുക      
   </h3>
 
-  <p class="text-center">
-      Please enter all available information. This can help relatives find them if required. <br>
-      ബന്ധുക്കൾക്ക് ഇവരെ കണ്ടെത്തുന്നതിന് ഇത് സഹായിക്കും
-  </p>
-
-  <div class="text-center">
+  <div class="text-center text-success">
       {% if messages %}
         {% for message in messages %}
-          <li class="{{ message.tags }}">{{ message }}</li>
+          <h4>{{ message }}</h4>
         {% endfor %}
-        <br>
       {% endif %}
   </div>
 
   <form method="post"  class="simple-form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-  <button type="submit" class="btn btn-primary">
-  {% bootstrap_icon "star" %} Submit
-  </button>
-  {% endbuttons %}
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button type="submit" class="btn btn-success">
+    Submit {% bootstrap_icon "chevron-right" %}
+    </button>
+    {% endbuttons %}
+
+    <p class="text-center">
+        Please enter all available information. This can help relatives find them if required. <br>
+        ബന്ധുക്കൾക്ക് ഇവരെ കണ്ടെത്തുന്നതിന് ഇത് സഹായിക്കും
+    </p>
   </form> 
 
 {% endblock %}
