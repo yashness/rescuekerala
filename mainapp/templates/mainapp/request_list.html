@@ -37,9 +37,13 @@
             <a href="?page={{ data.previous_page_number }}&district={{ request.GET.district }}">previous</a>
         {% endif %}
   
-        <span class="current">
-            Page {{ data.number }} of {{ data.paginator.num_pages }}.
-        </span>
+        {% for i in data.paginator.page_range %}
+        {% if data.number == i %}
+          <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+        {% else %}
+          <a href="?page={{ i }}&district={{ request.GET.district }}">{{ i }}</a>
+        {% endif %}
+      {% endfor %}
   
         {% if data.has_next %}
             <a href="?page={{ data.next_page_number }}&district={{ request.GET.district }}">next</a>
