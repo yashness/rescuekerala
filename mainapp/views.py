@@ -6,6 +6,7 @@ from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNe
 import django_filters
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
+from django.http import HttpResponseRedirect
 
 class CreateRequest(CreateView):
     model = Request
@@ -131,3 +132,16 @@ def mapdata(request):
 
 def mapview(request):
     return render(request,"map.html")
+
+def dmodash(request):
+    return render(request , "dmodash.html")
+
+def dmoinfo(request):
+    if("district" not in request.GET.keys()):return HttpResponseRedirect("/")
+    dist = request.GET.get("district")
+    reqserve = Request.objects.all().filter(status = "sup" , district = dist).count()
+    reqtotal = Request.objects.all().filter(district = dist).count()
+    volcount = Volunteer.objects.all().filter(district = dist).count()
+    conserve = Contributor.objects.all().filter(status = "ful" , district = dist).count()
+    contotal = Contributor.objects.all().filter(district = dist).count()
+    return render(request ,"dmoinfo.html",{"reqserve" : reqserve , "reqtotal" : reqtotal , "volcount" : volcount , "conserve" : conserve , "contotal" : contotal })
