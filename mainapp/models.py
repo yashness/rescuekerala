@@ -196,23 +196,23 @@ class RescueCamp(models.Model):
         return self.name
 
 class Person(models.Model):
-    name = models.CharField(max_length=30,blank=False,null=False)
-    age = models.IntegerField(null=True,blank=True)
+    name = models.CharField(max_length=30,blank=False,null=False,verbose_name="Name - പേര്")
+    phone = models.CharField(max_length=11,null=True,blank=True,verbose_name='Mobile - മൊബൈൽ')
+    age = models.IntegerField(null=True,blank=True,verbose_name="Age - പ്രായം")
     gender = models.IntegerField(
         choices = gender,
-        verbose_name='Gender',
+        verbose_name='Gender - ലിംഗം',
         null=True,blank=True
     )
-    address = models.CharField(max_length=150,null=True,blank=True)
+    address = models.CharField(max_length=150,null=True,blank=True,verbose_name="Address - വിലാസം")
     district = models.CharField(
         max_length = 15,
         choices = districts,
-        verbose_name='Districts',
+        verbose_name='District - ജില്ല',
         null=True,blank=True
     )
-    phone = models.CharField(max_length=11,null=True,blank=True)
-    notes = models.TextField(max_length=500,null=True,blank=True)
-    camped_at = models.ForeignKey(RescueCamp,models.CASCADE,blank=False,null=False)
+    notes = models.TextField(max_length=500,null=True,blank=True,verbose_name='Notes - കുറിപ്പുകൾ')
+    camped_at = models.ForeignKey(RescueCamp,models.CASCADE,blank=False,null=False,verbose_name='Camp Name - ക്യാമ്പിന്റെ പേര്')
 
     def __str__(self):
         return self.name
