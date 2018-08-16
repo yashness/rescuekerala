@@ -1,19 +1,19 @@
 from django.db import models
 
 districts = (
-    ('tvm','Thiruvananthapuram - തിരുവനന്തപുരം'),
     ('ptm','Pathanamthitta - പത്തനംതിട്ട'),
-    ('alp','Alappuzha - ആലപ്പുഴ'),
-    ('ktm','Kottayam - കോട്ടയം'),
+    ('wnd','Wayanad - വയനാട്'),
     ('idk','Idukki - ഇടുക്കി'),
+    ('ekm','Ernakulam - എറണാകുളം'),
+    ('ktm','Kottayam - കോട്ടയം'),
+    ('alp','Alappuzha - ആലപ്പുഴ'),
+    ('pkd','Palakkad - പാലക്കാട്'),
     ('mpm','Malappuram - മലപ്പുറം'),
     ('koz','Kozhikode - കോഴിക്കോട്'),
-    ('wnd','Wayanad - വയനാട്'),
     ('knr','Kannur - കണ്ണൂർ'),
     ('ksr','Kasaragod - കാസർഗോഡ്'),
-    ('pkd','Palakkad - പാലക്കാട്'),
     ('tcr','Thrissur - തൃശ്ശൂർ'),
-    ('ekm','Ernakulam - എറണാകുളം'),
+    ('tvm','Thiruvananthapuram - തിരുവനന്തപുരം'),
     ('kol','Kollam - കൊല്ലം'),
 )
 
