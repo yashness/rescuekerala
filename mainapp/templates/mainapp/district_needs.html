@@ -2,24 +2,25 @@
 {% load bootstrap3 %}
 
 {% block content %}
-
-<table>
-  <tr>
-    <th>District</th>
-    <th>Items required</th>
-    <th>Contacts & Collection points</th>
-  </tr>
-{% for item in district_data %}
-  <!-- Ernakulam -->
-  <tr valign="top">
-    <td><strong>{{item.get_district_display}}</strong></td>
-    <td>
-      {{item.needs|linebreaks}}
-    </td>
-    <td>
-      {{item.cnandpts|linebreaks}}
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>District</th>
+      <th>Items required</th>
+      <th>Contacts & Collection points</th>
+    </tr>
+  {% for item in district_data %}
+    <!-- Ernakulam -->
+    <tr valign="top">
+      <td><strong>{{item.get_district_display}}</strong></td>
+      <td>
+        {{item.needs|linebreaks}}
+      </td>
+      <td>
+        {{item.cnandpts|linebreaks}}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 {% endblock %}

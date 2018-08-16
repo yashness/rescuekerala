@@ -7,26 +7,27 @@
        {{ filter.form.as_p }}
        <input value="View requests" class="btn btn-primary" type="submit" />
  </form>
+ <div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>District</th>
+      <th>Location</th>
+      <th>Requestee</th>
+      <th>Contact number</th>
+      <th>Summary of request</th>
+      <th>Date</th>
+    </tr>
+    {% for req in filter.qs %}
+        <tr>
+          <td>{{ req.get_district_display }}</td>
+          <td>{{ req.location  }}</td>
+          <td>{{ req.requestee }}</td>
+          <td>{{ req.requestee_phone }}</td> 
+          <td>{{ req.summarise | linebreaks }}</td>
+          <td>{{ req.dateadded }}</td>
+        </tr>
+    {% endfor %}
 
- <table>
-  <tr>
-    <th>District</th>
-    <th>Location</th>
-    <th>Requestee</th>
-    <th>Contact number</th>
-    <th>Summary of request</th>
-    <th>Date</th>
-  </tr>
-   {% for req in filter.qs %}
-       <tr>
-         <td>{{ req.get_district_display }}</td>
-         <td>{{ req.location  }}</td>
-         <td>{{ req.requestee }}</td>
-         <td>{{ req.requestee_phone }}</td> 
-         <td>{{ req.summarise | linebreaks }}</td>
-         <td>{{ req.dateadded }}</td>
-       </tr>
-   {% endfor %}
-
-</table>
+  </table>
+</div>
 {% endblock %}
