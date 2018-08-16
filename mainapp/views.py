@@ -156,6 +156,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
        model = Person
        fields = [
+        'camped_at',
         'name',
         'age',
         'gender',
@@ -163,7 +164,6 @@ class PersonForm(forms.ModelForm):
         'district',
         'phone',
         'notes',
-        'camped_at'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -178,7 +178,7 @@ class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
     template_name='mainapp/add_person.html'  
     form_class = PersonForm
     success_url = '/add_person/'
-    success_message = "Created successfully"
+    success_message = "Added %(name)s to the list"
 
     def get_form_kwargs(self):
         kwargs = super(AddPerson, self).get_form_kwargs()
