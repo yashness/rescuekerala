@@ -48,16 +48,9 @@
 				if(checkbox.length > 0){
 					var checkboxElem = el.querySelectorAll("input")[0];
 					if(checkboxElem.id === "id_is_request_for_others" ){
-						if(checkboxElem.checked){
-							$('#id_latlng').parent().hide();
-							$('#id_latlng_accuracy').parent().hide();
-							$('#id_latlng_display').hide();
-						}
-						else{
-							$('#id_latlng').parent().show();
-							$('#id_latlng_accuracy').parent().show();
-							$('#id_latlng_display').show();
-						}
+					    $('#id_latlng').parent().show();
+					    $('#id_latlng_accuracy').parent().show();
+					    $('#id_latlng_display').show();
 					}
 					else if(checkboxElem.checked){
 						formgroups[i+1].style.display = "block";						
@@ -77,9 +70,7 @@
 	window.onload = function(){
         $("#id_requestee_phone").attr('type', 'number');
 		var gpsField = document.getElementById('id_latlng');
-		gpsField.readOnly = true;
 		var gpsAccuracyField = document.getElementById('id_latlng_accuracy');
-		gpsAccuracyField.readOnly = true;
 		var options = {
 			enableHighAccuracy: true
 		};
@@ -90,7 +81,7 @@
 				gpsAccuracyField.value = crd.accuracy + ' Meters';
 				$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + crd.latitude + '&lon=' + crd.longitude + '&zoom=18&addressdetails=1')
 					.done(function(response) {
-						var inputElem = $('<input class="form-control" id="id_latlng_display" readonly="true" value="' + response.display_name + '"</input>')
+						var inputElem = $('<input class="form-control" id="id_latlng_display" value="' + response.display_name + '"</input>')
 						$(gpsField).before(inputElem);
 						$(gpsField).hide();
 						console.log(response.display_name);
