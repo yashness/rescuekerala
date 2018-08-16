@@ -15,9 +15,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 You will need to have following softwares in your system
 
-- Python 3
-- Postgres
-- git
+- [Python 3](https://www.python.org/downloads/)
+- [Postgres](https://www.postgresql.org/download/)
+- [git](https://git-scm.com/downloads)
 
 ### Installing
 
