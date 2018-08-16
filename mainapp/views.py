@@ -93,7 +93,7 @@ class RequestFilter(django_filters.FilterSet):
                     'district' : ['exact'],
                     'requestee' : ['icontains'],
                     'requestee_phone' : ['exact'],
-                    'location' : ['exact']
+                    'location' : ['icontains']
                  }
 
     def __init__(self, *args, **kwargs):
