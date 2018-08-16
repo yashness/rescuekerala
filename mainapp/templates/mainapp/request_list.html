@@ -22,7 +22,7 @@
           <td>{{ req.get_district_display }}</td>
           <td>{{ req.location  }}</td>
           <td>{{ req.requestee }}</td>
-          <td>{{ req.requestee_phone }}</td> 
+          <td><a href="tel:{{ req.requestee_phone }}" >{{ req.requestee_phone }}</a></td> 
           <td>{{ req.summarise | linebreaks }}</td>
           <td>{{ req.dateadded }}</td>
         </tr>
