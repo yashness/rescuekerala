@@ -8,7 +8,7 @@ class RequestAdmin(admin.ModelAdmin):
     readonly_fields = ('dateadded',)
     ordering = ('district',)
     def download_csv(self, request, queryset):
-        f = open('test.csv', 'w')
+        f = open('req.csv', 'w')
         writer = csv.writer(f)
         l = []
         for i in (Request._meta.get_fields()):
@@ -19,7 +19,7 @@ class RequestAdmin(admin.ModelAdmin):
 
             writer.writerow(s)
         f.close()
-        f = open('test.csv', 'r')
+        f = open('req.csv', 'r')
         response = HttpResponse(f, content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=Requests.csv'
         return response
@@ -37,7 +37,7 @@ class VolunteerAdmin(admin.ModelAdmin):
         mapper = {}
         for i in vol_categories:
             mapper[i[0]] = i[1] 
-        f = open('test.csv', 'w')
+        f = open('vol.csv', 'w')
         writer = csv.writer(f)
         l = []
         for i in (Volunteer._meta.get_fields()):
@@ -49,14 +49,31 @@ class VolunteerAdmin(admin.ModelAdmin):
             s[6] = mapper[s[6]]
             writer.writerow(s)
         f.close()
-        f = open('test.csv', 'r')
+        f = open('vol.csv', 'r')
         response = HttpResponse(f, content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=Volunteers.csv'
         return response
 
 
 class ContributorAdmin(admin.ModelAdmin):
+    actions = ['download_csv']
     list_filter = ('district', 'status',)
+    def download_csv(self, request, queryset):
+        f = open('con.csv', 'w')
+        writer = csv.writer(f)
+        l = []
+        for i in (Contributor._meta.get_fields()):
+            l.append(i.name)
+        writer.writerow(l)
+        data = Contributor.objects.all().values_list()
+        for s in data:
+
+            writer.writerow(s)
+        f.close()
+        f = open('con.csv', 'r')
+        response = HttpResponse(f, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=Contributors.csv'
+        return response
 
 admin.site.register(Request, RequestAdmin)
 admin.site.register(Volunteer, VolunteerAdmin)
