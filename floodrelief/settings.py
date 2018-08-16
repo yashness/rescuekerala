@@ -56,6 +56,7 @@ RAVEN_CONFIG = {
 
 INSTALLED_APPS = [
     'mainapp.apps.MainappConfig',
+    'restendpoint.apps.RestendpointConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,6 +66,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_filters',
     'raven.contrib.django.raven_compat',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -101,12 +103,20 @@ WSGI_APPLICATION = 'floodrelief.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
-#     'default': env.db()
-# }
-DATABASES = {}
-DATABASES['default'] = dj_database_url.parse(env('B_DATABASE_URL'), conn_max_age=600)
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.parse(env('B_DATABASE_URL'), conn_max_age=600)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rescuekerala',
+        'USER': 'kurianbenoy',
+        'PASSWORD': 'yourpass',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
