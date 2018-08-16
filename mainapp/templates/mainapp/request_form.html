@@ -48,9 +48,7 @@
 		var gpsAccuracyField = document.getElementById('id_latlng_accuracy');
 		gpsAccuracyField.readOnly = true;
 		var options = {
-			enableHighAccuracy: true,
-			timeout: 5000,
-			maximumAge: 0
+			enableHighAccuracy: true
 		};
 
 		var success = function(pos) {
