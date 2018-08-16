@@ -4,4 +4,5 @@ from . models import Pickup
 class PickupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pickup
-        exclude = ('latt','longitude')
+        # exclude = ('latt','longitude')
+        fields = '__all__'
