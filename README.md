@@ -31,7 +31,7 @@ create database and user in postgres for kerala rescue and give privileges
 
 ```
 psql user=postgres
-Password: 
+Password:
 psql (10.4 (Ubuntu 10.4-0ubuntu0.18.04))
 Type "help" for help.
 
@@ -82,3 +82,6 @@ Run the server
 python3 manage.py runserver
 ```
 Now open localhost:8000 in the browser
+
+## Issues
+Please find issues that we need help [here](https://github.com/IEEEKeralaSection/rescuekerala/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22). Go through the comments in the issue to check if someone else is already working on it. Don't forget to drop a comment when you start working on it.
