@@ -228,4 +228,4 @@ def find_people(request):
     paginator = Paginator(people, 50)
     page = request.GET.get('page')
     people = paginator.get_page(page)
-    return render(request, 'mainapp/request_list.html', {'filter': filter , "data" : people })
+    return render(request, 'mainapp/people.html', {'filter': filter , "data" : people })
