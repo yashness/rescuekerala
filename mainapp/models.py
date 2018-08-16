@@ -184,16 +184,20 @@ class DistrictCollection(models.Model):
     )
 
 class RescueCamp(models.Model):
+    verbose_name = 'Relief Camp'
     name = models.CharField(max_length=50,verbose_name="Name")
-    location = models.TextField(verbose_name="Address")
+    location = models.TextField(verbose_name="Address",blank=True,null=True)
     district = models.CharField(
         max_length=15,
         choices=districts
     )
-    contacts = models.TextField(verbose_name="Phone Numbers")
+    contacts = models.TextField(verbose_name="Phone Numbers",blank=True,null=True)
     data_entry_user = models.ForeignKey(User,models.SET_NULL,blank=True,null=True)
+    class Meta:
+        verbose_name = 'Relief Camp'   
     def __str__(self):
         return self.name
+
 
 class Person(models.Model):
     name = models.CharField(max_length=30,blank=False,null=False,verbose_name="Name - പേര്")
