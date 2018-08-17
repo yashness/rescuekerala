@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
-from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed, Person, RescueCamp
+from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed, Person, RescueCamp, NGO
 import django_filters
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
@@ -47,6 +47,13 @@ class CreateRequest(CreateView):
 class RegisterVolunteer(CreateView):
     model = Volunteer
     fields = ['name', 'district', 'phone', 'organisation', 'area', 'address']
+    success_url = '/reg_success'
+
+
+class RegisterNGO(CreateView):
+    model = NGO
+    fields = ['organisation', 'organisation_type','organisation_address', 'name', 'phone', 'description', 'area',
+              'location']
     success_url = '/reg_success'
 
 
