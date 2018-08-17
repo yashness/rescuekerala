@@ -98,6 +98,39 @@ To run the tests, run this command:
 python3 manage.py test --settings=floodrelief.test_settings
 ```
 
+### Enable HTTPS connections
+
+Certain features (example: GPS location collection) only work with HTTPS connections.  To enable HTTPS connections follow the below steps.
+
+Create self-signed certicate with openssl
+
+```
+$openssl req -x509 -newkey rsa:4096 -keyout key.key -out certificate.crt -days 365 -subj '/CN=localhost' -nodes
+```
+[https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl#10176685]
+
+Install django-sslserver
+
+```
+$pip3 install django-sslserver
+```
+
+Update INSTALLED_APPS with sslserver by editing the file floodrelief/settings.py (diff below)
+
+```
+ INSTALLED_APPS = [
++    'sslserver',
+     'mainapp.apps.MainappConfig',
+     'django.contrib.admin',
+```
+#### Note: Make sure that this change is removed before pushing your changes back to git
+Run the server
+
+```
+python3 manage.py runsslserver 10.0.0.131:8002  --certificate /path/to/certificate.crt --key /path/to/key.key
+```
+In the above example the server is being run on a local IP address on port 8002 to enable HTTPS access from mobile/laptop/desktop for testing.
+
 ## How can you help?
 
 ### By testing
