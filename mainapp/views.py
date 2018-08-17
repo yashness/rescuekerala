@@ -7,6 +7,7 @@ import django_filters
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
+from django.http import QueryDict
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -124,7 +125,10 @@ class RequestFilter(django_filters.FilterSet):
 
 
 def request_list(request):
-    filter = RequestFilter(request.GET, queryset=Request.objects.all() )
+    if bool(request.GET) == False:
+        filter = RequestFilter(QueryDict('district=&requestee__icontains=&requestee_phone=&location__icontains='), queryset=Request.objects.all())
+    else:
+        filter = RequestFilter(request.GET, queryset=Request.objects.all() )
     req_data = filter.qs.order_by('-id')
     paginator = Paginator(req_data, 100)
     page = request.GET.get('page')
