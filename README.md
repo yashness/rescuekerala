@@ -105,7 +105,7 @@ python3 manage.py test --settings=floodrelief.test_settings
 We have a lot of [Pull Requests](https://github.com/IEEEKeralaSection/rescuekerala/pulls) that requires testing. Pick any PR that you like, try to reproduce the original issue and fix. Also join `#testing` channel in our slack and drop a note that you
 are working on it.
 
-## Testing Pull Requests
+### Testing Pull Requests
 1. Checkout the Pull Request you would like to test by
       ```
       git fetch origin pull/ID/head:BRANCHNAME`
@@ -117,8 +117,39 @@ are working on it.
     git checkout jaseem1
     ```
 3. Run Migration
-    
+
+### By submitting Patches   
+
 Please find issues that we need help [here](https://github.com/IEEEKeralaSection/rescuekerala/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22). Go through the comments in the issue to check if someone else is already working on it. Don't forget to drop a comment when you start working on it.
+
+Always start your work in a new git branch. **Don't start to work on the
+master branch**. Before you start your branch make sure you have the most
+up-to-date version of the master branch then, make a branch that ideally
+has the bug number in the branch name.
+
+1. Before you begin, Fork the repository. This is needed as you might not have permission to push to the main repository
+
+2. If you have already clone this repository, create a remote to track your fork by
+     ```
+     git remote add origin2 git@github.com:tessie/rescuekerala.git
+     ```
+2. if you have not yet cloned, clone your fork
+    ```
+    git clone git@github.com:tessie/rescuekerala.git
+    ```
+3. Checkout a new branch by
+     ```
+     git checkout -b issues_442
+     ```
+4. Make your changes .
+
+5. Ensure your feature is  working as expected.
+
+6. Push your code.
+      ```
+      git push origin2 issues_442
+      ```
+7. Compare and create your pull request.   
 
 [0]: https://travis-ci.org/IEEEKeralaSection/rescuekerala.svg?branch=master
 [1]: https://travis-ci.org/IEEEKeralaSection/rescuekerala
