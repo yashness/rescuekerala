@@ -1,6 +1,7 @@
 # rescuekerala
 
 [![Build Status - Travis][0]][1]
+[![Updates](https://pyup.io/repos/github/IEEEKeralaSection/rescuekerala/shield.svg)](https://pyup.io/repos/github/IEEEKeralaSection/rescuekerala/)
 
 Website for coordinating the rehabilitation of the people affected in the 2018 Kerala Floods.
 
