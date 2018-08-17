@@ -125,6 +125,15 @@ def request_list(request):
     req_data = paginator.get_page(page)
     return render(request, 'mainapp/request_list.html', {'filter': filter , "data" : req_data })
 
+def request_details(request, request_id=None):
+    if not request_id:
+        return HttpResponseRedirect("/error?error_text={}".format('Page not found!'))
+    filter = RequestFilter(None)
+    try:
+        req_data = Request.objects.get(id=request_id)
+    except:
+        return HttpResponseRedirect("/error?error_text={}".format('Sorry, we couldnt fetch details for that request'))
+    return render(request, 'mainapp/request_details.html', {'filter' : filter, 'req': req_data })
 
 class DistrictManagerFilter(django_filters.FilterSet):
     class Meta:
@@ -148,7 +157,7 @@ class Maintenance(TemplateView):
 def mapdata(request):
     data = Request.objects.exclude(latlng__exact="").values()
 
-    return JsonResponse(list(data) , safe=False) 
+    return JsonResponse(list(data) , safe=False)
 
 def mapview(request):
     return render(request,"map.html")
@@ -165,6 +174,10 @@ def dmoinfo(request):
     conserve = Contributor.objects.all().filter(status = "ful" , district = dist).count()
     contotal = Contributor.objects.all().filter(district = dist).count()
     return render(request ,"dmoinfo.html",{"reqserve" : reqserve , "reqtotal" : reqtotal , "volcount" : volcount , "conserve" : conserve , "contotal" : contotal })
+
+def error(request):
+    error_text = request.GET.get('error_text')
+    return render(request , "mainapp/error.html", {"error_text" : error_text})
 
 def logout_view(request):
     logout(request)
