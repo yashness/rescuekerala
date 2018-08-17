@@ -193,6 +193,8 @@ class RescueCamp(models.Model):
     )
     contacts = models.TextField(verbose_name="Phone Numbers",blank=True,null=True)
     data_entry_user = models.ForeignKey(User,models.SET_NULL,blank=True,null=True)
+    latlng = models.CharField(max_length=100, verbose_name='GPS Coordinates - GPS നിർദ്ദേശാങ്കങ്ങൾ ', blank=True)
+    map_link = models.TextField(verbose_name='Map link',blank=True,null=True)
     class Meta:
         verbose_name = 'Relief Camp'   
     def __str__(self):

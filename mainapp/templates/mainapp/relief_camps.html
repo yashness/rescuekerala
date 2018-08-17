@@ -31,6 +31,7 @@
     <tr>
       <th>District</th>
       <th>Camp Name</th>
+      <th>Location</th>
       <th>Address</th>
       <th>Contact Numbers</th>
       <th>Registrations</th>
@@ -40,6 +41,9 @@
       <td><strong>{{ item.get_district_display }}</strong></td>
       <td>
         {{ item.name }}
+      </td>
+      <td>
+        {{ item.map_link}}
       </td>
       <td>
         {{ item.location | linebreaks }}
