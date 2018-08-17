@@ -90,6 +90,17 @@ Now open localhost:8000 in the browser
 We have a lot of [Pull Requests](https://github.com/IEEEKeralaSection/rescuekerala/pulls) that requires testing. Pick any PR you like, try to reproduce the original issue and fix. Also join `#testing` channel in our slack and drop a note that you
 are working on it.
 
-### By fixing bugs or by adding features
-
+## Testing Pull Requests
+1. Checkout the Pull Request you would like to test by
+      ```
+      git fetch origin pull/ID/head:BRANCHNAME`
+      git checkout BRANCHNAME
+     ```    
+2. Example
+    ```
+    git fetch origin pull/406/head:jaseem  
+    git checkout jaseem1
+    ```
+3. Run Migration
+    
 Please find issues that we need help [here](https://github.com/IEEEKeralaSection/rescuekerala/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22). Go through the comments in the issue to check if someone else is already working on it. Don't forget to drop a comment when you start working on it.
