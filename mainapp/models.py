@@ -193,8 +193,8 @@ class RescueCamp(models.Model):
     )
     contacts = models.TextField(verbose_name="Phone Numbers",blank=True,null=True)
     data_entry_user = models.ForeignKey(User,models.SET_NULL,blank=True,null=True)
-    latlng = models.CharField(max_length=100, verbose_name='GPS Coordinates - GPS നിർദ്ദേശാങ്കങ്ങൾ ', blank=True)
-    map_link = models.TextField(verbose_name='Map link',blank=True,null=True)
+    map_link = models.CharField(max_length=250, verbose_name='Map link',blank=True,null=True,help_text="Copy and paste the full Google Maps link")
+    latlng = models.CharField(max_length=100, verbose_name='GPS Coordinates', blank=True,help_text="Comma separated latlng field. Leave blank if you don't know it")
     class Meta:
         verbose_name = 'Relief Camp'   
     def __str__(self):
@@ -210,7 +210,7 @@ class Person(models.Model):
         verbose_name='Gender - ലിംഗം',
         null=True,blank=True
     )
-    address = models.CharField(max_length=150,null=True,blank=True,verbose_name="Address - വിലാസം")
+    address = models.TextField(max_length=150,null=True,blank=True,verbose_name="Address - വിലാസം")
     district = models.CharField(
         max_length = 15,
         choices = districts,

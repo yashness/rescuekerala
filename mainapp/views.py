@@ -196,13 +196,20 @@ class PersonForm(forms.ModelForm):
        fields = [
         'camped_at',
         'name',
+        'phone',
         'age',
         'gender',
-        'address',
         'district',
-        'phone',
+        'address',
         'notes'
         ]
+       
+       widgets = {
+           'address': forms.Textarea(attrs={'rows':3}),
+           'notes': forms.Textarea(attrs={'rows':3}),
+           'gender': forms.RadioSelect()
+        }
+
 
     def __init__(self, *args, **kwargs):
        user = kwargs.pop('user')
