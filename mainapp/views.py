@@ -17,6 +17,8 @@ from django.core.cache import cache
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.http import Http404
 
 class CreateRequest(CreateView):
     model = Request
@@ -246,6 +248,13 @@ class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
         return reverse('add_person', args=(self.camp_id,))
     def dispatch(self, request, *args, **kwargs):
         self.camp_id = kwargs.get('camp_id','')
+        
+        try:
+            self.camp = RescueCamp.objects.get(id=int(self.camp_id))
+        except ObjectDoesNotExist:
+            raise Http404
+        if request.user!=self.camp.data_entry_user:
+            raise PermissionDenied
         return super(AddPerson, self).dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
@@ -283,10 +292,11 @@ class CampDetails(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
     success_url = '/coordinator_home/'
     success_message = "Updated requirements saved!"
 
-    # def get_form_kwargs(self):
-    #     kwargs = super(AddPerson, self).get_form_kwargs()
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
+    def dispatch(self, request, *args, **kwargs):
+        if request.user!=self.get_object().data_entry_user:
+            raise PermissionDenied
+        return super(CampDetails, self).dispatch(
+            request, *args, **kwargs)
 
 class PeopleFilter(django_filters.FilterSet):
     fields = ['name', 'phone','address','district','notes','gender','camped_at']
