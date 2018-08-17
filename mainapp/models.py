@@ -246,7 +246,7 @@ class Person(models.Model):
     district = models.CharField(
         max_length = 15,
         choices = districts,
-        verbose_name='District - ജില്ല',
+        verbose_name='Residence District - താമസിക്കുന്ന ജില്ല',
         null=True,blank=True
     )
     notes = models.TextField(max_length=500,null=True,blank=True,verbose_name='Notes - കുറിപ്പുകൾ')
