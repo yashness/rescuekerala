@@ -2,11 +2,17 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
-from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed, RescueCampDetails
+from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed, Person, RescueCamp
 import django_filters
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
+from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.db.models import Count
 
 class CreateRequest(CreateView):
     model = Request
@@ -81,15 +87,14 @@ class DistNeeds(TemplateView):
         context['district_data'] = DistrictNeed.objects.all()
         return context
 
+class ReliefCamps(TemplateView):
+    template_name = "mainapp/relief_camps.html"
 
-class RescueCamps(TemplateView):
-    template_name = "mainapp/rescue_camps.html"
-    
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['camp_data'] = RescueCampDetails.objects.all()
+        context['relief_camps'] = RescueCamp.objects.annotate(count=Count('person')).order_by('district','name').all()
         return context
 
 
@@ -160,3 +165,72 @@ def dmoinfo(request):
     conserve = Contributor.objects.all().filter(status = "ful" , district = dist).count()
     contotal = Contributor.objects.all().filter(district = dist).count()
     return render(request ,"dmoinfo.html",{"reqserve" : reqserve , "reqtotal" : reqtotal , "volcount" : volcount , "conserve" : conserve , "contotal" : contotal })
+
+def logout_view(request):
+    logout(request)
+    # Redirect to camps page instead
+    return redirect('relief_camps')
+
+class PersonForm(forms.ModelForm):
+    class Meta:
+       model = Person
+       fields = [
+        'camped_at',
+        'name',
+        'age',
+        'gender',
+        'address',
+        'district',
+        'phone',
+        'notes'
+        ]
+
+    def __init__(self, *args, **kwargs):
+       user = kwargs.pop('user')
+       super(PersonForm, self).__init__(*args, **kwargs)
+       self.fields['camped_at'].queryset = RescueCamp.objects.filter(data_entry_user=user)
+       self.fields['camped_at'].initial = RescueCamp.objects.filter(data_entry_user=user).first()
+
+class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
+    login_url = '/login/'
+    model = Person
+    template_name='mainapp/add_person.html'  
+    form_class = PersonForm
+    success_url = '/add_person/'
+    success_message = "'%(name)s' registered successfully"
+
+    def get_form_kwargs(self):
+        kwargs = super(AddPerson, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+class PeopleFilter(django_filters.FilterSet):
+    fields = ['name', 'phone','address','district','notes','gender','camped_at']
+
+    class Meta:
+        model = Person
+        fields = {
+            'name' : ['icontains'],
+            'phone' : ['icontains'],
+            'address' : ['icontains'],
+            'district' : ['exact'],
+            'notes':['icontains'],
+            'gender':['exact'],
+            'camped_at':['exact']
+        }
+
+        # TODO - field order seems to not be working!
+        # field_order = ['name', 'phone', 'address','district','notes','gender','camped_at']
+
+    def __init__(self, *args, **kwargs):
+        super(PeopleFilter, self).__init__(*args, **kwargs)
+        if self.data == {}:
+            self.queryset = self.queryset.all()
+
+def find_people(request):
+    filter = PeopleFilter(request.GET, queryset=Person.objects.all())
+    people = filter.qs.order_by('name','-added_at')
+    paginator = Paginator(people, 50)
+    page = request.GET.get('page')
+    people = paginator.get_page(page)
+    return render(request, 'mainapp/people.html', {'filter': filter , "data" : people })
