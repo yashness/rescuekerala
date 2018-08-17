@@ -84,6 +84,20 @@ python3 manage.py runserver
 ```
 7. Now open localhost:8000 in the browser
 
+## Running tests
+
+When running tests, Django creates a test replica of the database in order for the tests not to change the data on the real database. Because of that you need to alter the Postgres user that you created and add to it the `CREATEDB` priviledge:
+
+```
+ALTER USER rescueuser CREATEDB;
+```
+
+To run the tests, run this command:
+
+```
+python3 manage.py test --settings=floodrelief.test_settings
+```
+
 ## How can you help?
 
 ### By testing
