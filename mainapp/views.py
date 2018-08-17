@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
 from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed, Person, RescueCamp, NGO
 import django_filters
@@ -15,6 +15,7 @@ from django.shortcuts import redirect
 from django.db.models import Count
 from django.core.cache import cache
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 class CreateRequest(CreateView):
     model = Request
@@ -246,6 +247,19 @@ class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+class CampDetails(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
+    login_url = '/login/'
+    model = RescueCamp
+    template_name='mainapp/camp_details.html'  
+    form_class = PersonForm
+    success_url = '/home/'
+    success_message = "'%(name)s' registered successfully"
+
+    def get_form_kwargs(self):
+        kwargs = super(AddPerson, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 class PeopleFilter(django_filters.FilterSet):
     fields = ['name', 'phone','address','district','notes','gender','camped_at']
 
@@ -276,3 +290,8 @@ def find_people(request):
     page = request.GET.get('page')
     people = paginator.get_page(page)
     return render(request, 'mainapp/people.html', {'filter': filter , "data" : people })
+
+@login_required(login_url='/login/')
+def coordinator_home(request):
+    camps = RescueCamp.objects.filter(data_entry_user=request.user)
+    return render(request,"mainapp/coordinator_home.html",{'camps':camps})

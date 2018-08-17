@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<h3>
+        Relief Camps | 
+        ദുരിതാശ്വാസ ക്യാമ്പുകൾ
+</h3>
+
+
+{% if camps.count > 0 %}
+<div>
+  <table class="table">
+    <tr>
+      <th>District</th>
+      <th>Camp Name</th>
+    </tr>
+  {% for item in camps %}
+    <tr valign="top">
+      <td><strong>{{ item.get_district_display }}</strong></td>
+      <td>
+        {{ item.name }}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% else  %}
+<div class="text-center text-warning">
+  No relief camps listed for this user.
+</div>
+{% endif %}
+
+
+
+</script>
+{% endblock %}
