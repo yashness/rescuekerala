@@ -161,7 +161,10 @@ class Maintenance(TemplateView):
 
 
 def mapdata(request):
-    data = Request.objects.exclude(latlng__exact="").values()
+    if("district" in request.GET.keys()):
+        data = Request.objects.exclude(latlng__exact="").filter(district = request.GET.get("district")).values() 
+    else:
+        data = Request.objects.exclude(latlng__exact="").values()
 
     return JsonResponse(list(data) , safe=False)
 
