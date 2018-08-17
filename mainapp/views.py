@@ -16,6 +16,7 @@ from django.db.models import Count
 from django.core.cache import cache
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 class CreateRequest(CreateView):
     model = Request
@@ -224,27 +225,32 @@ class PersonForm(forms.ModelForm):
        widgets = {
            'address': forms.Textarea(attrs={'rows':3}),
            'notes': forms.Textarea(attrs={'rows':3}),
-           'gender': forms.RadioSelect()
+           'gender': forms.RadioSelect(),
         }
 
 
     def __init__(self, *args, **kwargs):
-       user = kwargs.pop('user')
+       camp_id = kwargs.pop('camp_id')
        super(PersonForm, self).__init__(*args, **kwargs)
-       self.fields['camped_at'].queryset = RescueCamp.objects.filter(data_entry_user=user)
-       self.fields['camped_at'].initial = RescueCamp.objects.filter(data_entry_user=user).first()
+       self.fields['camped_at'].queryset = RescueCamp.objects.filter(id=camp_id)
+       self.fields['camped_at'].initial = RescueCamp.objects.filter(id=camp_id).first()
 
 class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
     login_url = '/login/'
     model = Person
     template_name='mainapp/add_person.html'  
     form_class = PersonForm
-    success_url = '/add_person/'
     success_message = "'%(name)s' registered successfully"
+
+    def get_success_url(self):
+        return reverse('add_person', args=(self.camp_id,))
+    def dispatch(self, request, *args, **kwargs):
+        self.camp_id = kwargs.get('camp_id','')
+        return super(AddPerson, self).dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super(AddPerson, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs['camp_id'] = self.camp_id
         return kwargs
 
 
