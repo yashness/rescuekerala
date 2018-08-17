@@ -133,15 +133,15 @@ has the bug number in the branch name.
      ```
      git remote add origin2 git@github.com:tessie/rescuekerala.git
      ```
-2. if you have not yet cloned, clone your fork
+3. If you have not yet cloned, clone your fork
     ```
     git clone git@github.com:tessie/rescuekerala.git
     ```
-3. Checkout a new branch by
+4. Checkout a new branch by
      ```
      git checkout -b issues_442
      ```
-4. Make your changes .
+4. Make your changes.
 
 5. Ensure your feature is  working as expected.
 
