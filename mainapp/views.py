@@ -41,19 +41,19 @@ class CreateRequest(CreateView):
         'detailtoilet',
         'needothers'
     ]
-    success_url = '/req_sucess'
+    success_url = '/req_sucess/'
 
 
 class RegisterVolunteer(CreateView):
     model = Volunteer
     fields = ['name', 'district', 'phone', 'organisation', 'area', 'address']
-    success_url = '/reg_success'
+    success_url = '/reg_success/'
 
 
 class RegisterContributor(CreateView):
     model = Contributor
     fields = ['name', 'district', 'phone', 'address',  'commodities']
-    success_url = '/contrib_success'
+    success_url = '/contrib_success/'
 
 
 class HomePageView(TemplateView):
@@ -169,7 +169,7 @@ def dmoinfo(request):
 def logout_view(request):
     logout(request)
     # Redirect to camps page instead
-    return redirect('relief_camps')
+    return redirect('relief_camps/')
 
 class PersonForm(forms.ModelForm):
     class Meta:
