@@ -26,7 +26,7 @@ You will need to have following softwares in your system:
 
 #### Setting up a development environment
 
-1. Create database and user in postgres for kerala rescue and give privilegesl.
+1. Create database and user in postgres for kerala rescue and give privileges.
 
 ```
 psql user=postgres
