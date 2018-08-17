@@ -262,11 +262,11 @@ class CampDetailsForm(forms.ModelForm):
        read_only = ('name',)
        widgets = {
            'name': forms.Textarea(attrs={'rows':1,'readonly':True}),
-           'food_req': forms.Textarea(attrs={'rows':2}),
-           'clothing_req': forms.Textarea(attrs={'rows':2}),
-           'sanitary_req': forms.Textarea(attrs={'rows':2}),
-           'sanitary_req': forms.Textarea(attrs={'rows':2}),
-           'other_req': forms.Textarea(attrs={'rows':2}),
+           'food_req': forms.Textarea(attrs={'rows':3}),
+           'clothing_req': forms.Textarea(attrs={'rows':3}),
+           'medical_req': forms.Textarea(attrs={'rows':3}),
+           'sanitary_req': forms.Textarea(attrs={'rows':3}),
+           'other_req': forms.Textarea(attrs={'rows':3}),
        }
 
 class CampDetails(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
@@ -275,7 +275,7 @@ class CampDetails(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
     template_name='mainapp/camp_details.html'  
     form_class = CampDetailsForm
     success_url = '/coordinator_home/'
-    success_message = "Updated successfully"
+    success_message = "Updated requirements saved!"
 
     # def get_form_kwargs(self):
     #     kwargs = super(AddPerson, self).get_form_kwargs()
