@@ -176,10 +176,9 @@ def mapdata(request):
         return JsonResponse(list(data) , safe=False)
     if district != "all":
         data = Request.objects.exclude(latlng__exact="").filter(district=district).values()
-        cache.set("mapdata:" + district, data, settings.CACHE_TIMEOUT)
     else:
         data = Request.objects.exclude(latlng__exact="").values()
-        cache.set("mapdata:" + district, data, settings.CACHE_TIMEOUT)
+    cache.set("mapdata:" + district, data, settings.CACHE_TIMEOUT)
     return JsonResponse(list(data) , safe=False)
 
 def mapview(request):
