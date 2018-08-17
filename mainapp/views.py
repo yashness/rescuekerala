@@ -247,18 +247,40 @@ class AddPerson(SuccessMessageMixin,LoginRequiredMixin,CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+
+class CampDetailsForm(forms.ModelForm):
+    class Meta:
+       model = RescueCamp
+       fields = [
+        'name',
+        'food_req',
+        'clothing_req',
+        'sanitary_req',
+        'medical_req',
+        'other_req'
+        ]
+       read_only = ('name',)
+       widgets = {
+           'name': forms.Textarea(attrs={'rows':1,'readonly':True}),
+           'food_req': forms.Textarea(attrs={'rows':2}),
+           'clothing_req': forms.Textarea(attrs={'rows':2}),
+           'sanitary_req': forms.Textarea(attrs={'rows':2}),
+           'sanitary_req': forms.Textarea(attrs={'rows':2}),
+           'other_req': forms.Textarea(attrs={'rows':2}),
+       }
+
 class CampDetails(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
     login_url = '/login/'
     model = RescueCamp
     template_name='mainapp/camp_details.html'  
-    form_class = PersonForm
-    success_url = '/home/'
-    success_message = "'%(name)s' registered successfully"
+    form_class = CampDetailsForm
+    success_url = '/coordinator_home/'
+    success_message = "Updated successfully"
 
-    def get_form_kwargs(self):
-        kwargs = super(AddPerson, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
+    # def get_form_kwargs(self):
+    #     kwargs = super(AddPerson, self).get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
 
 class PeopleFilter(django_filters.FilterSet):
     fields = ['name', 'phone','address','district','notes','gender','camped_at']

@@ -222,6 +222,11 @@ class RescueCamp(models.Model):
     data_entry_user = models.ForeignKey(User,models.SET_NULL,blank=True,null=True)
     map_link = models.CharField(max_length=250, verbose_name='Map link',blank=True,null=True,help_text="Copy and paste the full Google Maps link")
     latlng = models.CharField(max_length=100, verbose_name='GPS Coordinates', blank=True,help_text="Comma separated latlng field. Leave blank if you don't know it")
+    food_req = models.CharField(max_length=200,blank=True,null=True)
+    clothing_req = models.CharField(max_length=200,blank=True,null=True)
+    sanitary_req = models.CharField(max_length=200,blank=True,null=True)
+    medical_req = models.CharField(max_length=200,blank=True,null=True)
+    other_req = models.CharField(max_length=200,blank=True,null=True)
     class Meta:
         verbose_name = 'Relief Camp'
     def __str__(self):
